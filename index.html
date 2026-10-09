@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1B0B-UP</title>
+  <meta name="description" content="Music and learning tools, built for personal use.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:           #0c0d11;
+      --surface:      #13151d;
+      --surface-hi:   #191c27;
+      --text:         #dde0ec;
+      --text-dim:     #50546a;
+      --accent:       #6c8ef0;
+      --border:       #1c1f2e;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ── Header ── */
+    header {
+      padding: 88px 0 72px;
+      position: relative;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--border);
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: rule-in 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards;
+    }
+
+    @keyframes rule-in {
+      to { transform: scaleX(1); }
+    }
+
+    .handle {
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+
+    .tagline {
+      font-size: 1rem;
+      color: var(--text-dim);
+      font-weight: 400;
+      max-width: 42ch;
+    }
+
+    /* ── Grid ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      margin: 56px 0 0;
+    }
+
+    .card {
+      background: var(--surface);
+      padding: 32px 36px;
+      border-left: 2px solid transparent;
+      transition: background 0.18s ease, border-color 0.18s ease;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      background: var(--surface-hi);
+      border-left-color: var(--accent);
+    }
+
+    .card:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+    }
+
+    .card-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .card-desc {
+      font-size: 0.875rem;
+      color: var(--text-dim);
+      line-height: 1.55;
+      flex: 1;
+      margin-bottom: 24px;
+    }
+
+    .card-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .card-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-dim);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: color 0.15s ease;
+    }
+
+    .card:hover .card-links a {
+      color: var(--accent);
+    }
+
+    .card-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 2px;
+      padding: 36px 0 56px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer span {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    footer a {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    footer a:hover {
+      color: var(--text);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      header { padding: 56px 0 48px; }
+      .grid { grid-template-columns: 1fr; }
+      .card { padding: 28px 24px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      header::after { animation: none; transform: scaleX(1); }
+      .card { transition: none; }
+      .card-links a { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="handle">1B0B-UP</div>
+      <p class="tagline">Music and learning tools, built for personal use.</p>
+    </header>
+
+    <main>
+      <div class="grid">
+
+        <div class="card">
+          <div class="card-name">Perfect Pitch Analyzer</div>
+          <p class="card-desc">Real-time pitch, chord, and key detection from your microphone. Guitar tuner, piano and fretboard views, session history, MIDI export.</p>
+          <div class="card-links">
+            <a href="https://perfect-pitch-analyzer-v2-quickwins.vercel.app" target="_blank" rel="noopener">Live</a>
+            <a href="https://github.com/1B0B-UP/perfect-pitch-analyzer" target="_blank" rel="noopener">Code</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-name">Guit Game</div>
+          <p class="card-desc">Two guitar-controlled browser games. Fight Guit is a fighting game triggered by notes. Drive Guit is a three-note racing game.</p>
+          <div class="card-links">
+            <a href="https://guit-game.vercel.app" target="_blank" rel="noopener">Live</a>
+            <a href="https://github.com/1B0B-UP/guit-game" target="_blank" rel="noopener">Code</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-name">Shwing</div>
+          <p class="card-desc">Ear training through song anchors. Tie intervals, chords, and keys to songs you know, then drill them with a spaced-repetition system.</p>
+          <div class="card-links">
+            <a href="https://shwing-ten.vercel.app" target="_blank" rel="noopener">Live</a>
+            <a href="https://github.com/1B0B-UP/shwing" target="_blank" rel="noopener">Code</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-name">Noble Shell</div>
+          <p class="card-desc">Engineering study platform. FSRS flashcards, AI-generated quizzes and summaries, YouTube and Wikipedia feed, FE/PE exam prep.</p>
+          <div class="card-links">
+            <a href="https://noble-shell.vercel.app" target="_blank" rel="noopener">Live</a>
+            <a href="https://github.com/1B0B-UP/noble-shell" target="_blank" rel="noopener">Code</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-name">Te Matemata</div>
+          <p class="card-desc">Two modes: walk through critical thinking scenarios out loud with an AI coach, or study engineering topics with flashcards and quizzes.</p>
+          <div class="card-links">
+            <a href="https://think-aloud-liard.vercel.app" target="_blank" rel="noopener">Live</a>
+            <a href="https://github.com/1B0B-UP/think-aloud" target="_blank" rel="noopener">Code</a>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <footer>
+      <span>1B0B-UP</span>
+      <a href="https://github.com/1B0B-UP" target="_blank" rel="noopener">github.com/1B0B-UP</a>
+    </footer>
+  </div>
+</body>
+</html>
