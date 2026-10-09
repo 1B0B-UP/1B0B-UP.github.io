@@ -5,61 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>1B0B-UP</title>
   <meta name="description" content="Music and learning tools, built for personal use.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:          #07080f;
-      --surface:     #0e1019;
-      --surface-hi:  #131624;
-      --border:      rgba(139, 148, 220, 0.12);
-      --border-hi:   rgba(139, 148, 220, 0.35);
-      --text:        #e8eaf4;
-      --text-2:      #8b91b8;
-      --text-3:      #4a5070;
-      --indigo:      #818cf8;
-      --violet:      #a78bfa;
-      --green:       #34d399;
-      --amber:       #fbbf24;
+      --bg:                #000000;
+      --bg-2:              #1c1c1e;
+      --bg-3:              #2c2c2e;
+      --fill:              rgba(255,255,255,0.05);
+      --fill-hi:           rgba(255,255,255,0.09);
+      --separator:         rgba(84,84,88,0.5);
+      --label:             #ffffff;
+      --label-2:           rgba(235,235,245,0.6);
+      --label-3:           rgba(235,235,245,0.3);
+      --blue:              #0a84ff;
+      --purple:            #bf5af2;
+      --indigo:            #5e5ce6;
+      --green:             #30d158;
+      --amber:             #ffd60a;
+      --glass-bg:          rgba(28,28,30,0.7);
+      --glass-border:      rgba(255,255,255,0.1);
+      --radius-card:       20px;
+      --radius-btn:        12px;
+      --radius-tag:        100px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html { scroll-behavior: smooth; }
-
     body {
-      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
       background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
+      color: var(--label);
       -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    /* ── Hero glow ── */
-    body::before {
-      content: '';
+    /* ── Gradient backdrop ── */
+    .backdrop {
       position: fixed;
-      top: -200px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 800px;
-      height: 600px;
-      background: radial-gradient(ellipse at center top,
-        rgba(129, 140, 248, 0.14) 0%,
-        rgba(167, 139, 250, 0.07) 40%,
-        transparent 70%);
-      pointer-events: none;
+      inset: 0;
       z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
     }
 
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 32px;
+    .backdrop-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.35;
+    }
+
+    .orb-1 {
+      width: 600px;
+      height: 600px;
+      top: -200px;
+      left: -100px;
+      background: radial-gradient(circle, #5e5ce6, transparent 70%);
+    }
+
+    .orb-2 {
+      width: 500px;
+      height: 500px;
+      top: -100px;
+      right: -100px;
+      background: radial-gradient(circle, #bf5af2, transparent 70%);
+    }
+
+    .orb-3 {
+      width: 400px;
+      height: 400px;
+      bottom: 10%;
+      left: 30%;
+      background: radial-gradient(circle, #0a84ff, transparent 70%);
+      opacity: 0.18;
+    }
+
+    /* ── Layout ── */
+    .page {
       position: relative;
       z-index: 1;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 24px;
     }
 
     /* ── Nav ── */
@@ -67,284 +93,291 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 24px 0;
-      border-bottom: 1px solid var(--border);
+      padding: 20px 0 0;
     }
 
-    .nav-logo {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text);
-      text-decoration: none;
-      letter-spacing: -0.01em;
-    }
-
-    .nav-link {
-      font-size: 0.875rem;
-      color: var(--text-2);
-      text-decoration: none;
-      display: flex;
+    .nav-pill {
+      display: inline-flex;
       align-items: center;
-      gap: 6px;
-      transition: color 0.15s;
+      gap: 8px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 0.5px solid var(--glass-border);
+      border-radius: 100px;
+      padding: 8px 18px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--label);
+      letter-spacing: -0.01em;
+      text-decoration: none;
     }
 
-    .nav-link:hover { color: var(--text); }
+    .nav-gh {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 0.5px solid var(--glass-border);
+      border-radius: 100px;
+      padding: 8px 18px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--label-2);
+      text-decoration: none;
+      transition: color 0.2s, background 0.2s;
+    }
 
-    .nav-link svg {
-      opacity: 0.7;
+    .nav-gh:hover {
+      color: var(--label);
+      background: var(--fill-hi);
     }
 
     /* ── Hero ── */
     .hero {
-      padding: 96px 0 80px;
+      padding: 100px 0 80px;
+      text-align: center;
     }
 
-    .hero-label {
+    .hero-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      font-size: 0.8rem;
+      gap: 6px;
+      background: rgba(94,92,230,0.15);
+      border: 0.5px solid rgba(94,92,230,0.4);
+      border-radius: var(--radius-tag);
+      padding: 5px 14px;
+      font-size: 0.78rem;
       font-weight: 500;
-      color: var(--indigo);
-      background: rgba(129, 140, 248, 0.1);
-      border: 1px solid rgba(129, 140, 248, 0.2);
-      border-radius: 100px;
-      padding: 4px 12px;
-      margin-bottom: 28px;
+      color: #a5a3f7;
+      letter-spacing: 0.01em;
+      margin-bottom: 32px;
     }
 
-    .hero-label::before {
-      content: '';
+    .hero-badge-dot {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--indigo);
+      background: #a5a3f7;
     }
 
-    .hero-name {
-      font-size: clamp(2.8rem, 7vw, 5rem);
+    .hero-title {
+      font-size: clamp(3.5rem, 9vw, 6.5rem);
       font-weight: 700;
       letter-spacing: -0.04em;
-      line-height: 1.05;
-      margin-bottom: 20px;
-      background: linear-gradient(135deg, #e8eaf4 30%, #a78bfa 100%);
+      line-height: 1;
+      margin-bottom: 24px;
+      background: linear-gradient(160deg, #ffffff 40%, rgba(191,90,242,0.85) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
     .hero-sub {
-      font-size: 1.1rem;
-      color: var(--text-2);
-      max-width: 48ch;
+      font-size: 1.15rem;
+      color: var(--label-2);
+      max-width: 44ch;
+      margin: 0 auto 40px;
       line-height: 1.65;
-      margin-bottom: 36px;
+      letter-spacing: -0.01em;
     }
 
-    .hero-cta {
+    .hero-btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--text);
-      background: var(--surface-hi);
-      border: 1px solid var(--border-hi);
-      border-radius: 8px;
-      padding: 10px 20px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      padding: 14px 28px;
+      border-radius: var(--radius-btn);
       text-decoration: none;
-      transition: background 0.15s, border-color 0.15s;
+      transition: opacity 0.2s;
     }
 
-    .hero-cta:hover {
-      background: rgba(129, 140, 248, 0.08);
-      border-color: rgba(129, 140, 248, 0.4);
-    }
+    .hero-btn:hover { opacity: 0.85; }
 
-    /* ── Projects section ── */
-    .section-label {
-      font-size: 0.8rem;
+    /* ── Section header ── */
+    .section-head {
+      font-size: 0.72rem;
       font-weight: 500;
-      color: var(--text-3);
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      margin-bottom: 24px;
+      color: var(--label-3);
+      margin-bottom: 12px;
+      padding-left: 4px;
     }
 
+    /* ── Grid ── */
     .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-bottom: 16px;
+      gap: 12px;
     }
 
+    /* ── Card ── */
     .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 28px 30px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(40px) saturate(200%);
+      -webkit-backdrop-filter: blur(40px) saturate(200%);
+      border: 0.5px solid var(--glass-border);
+      border-radius: var(--radius-card);
+      padding: 24px 26px 22px;
       display: flex;
       flex-direction: column;
-      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
-      text-decoration: none;
+      transition: background 0.25s, border-color 0.25s, transform 0.2s;
     }
 
     .card:hover {
-      border-color: var(--border-hi);
-      background: var(--surface-hi);
-      box-shadow: 0 4px 32px rgba(129, 140, 248, 0.08), 0 0 0 1px rgba(129, 140, 248, 0.08);
+      background: rgba(44,44,46,0.75);
+      border-color: rgba(255,255,255,0.18);
+      transform: translateY(-2px);
     }
 
-    .card-header {
+    .card-top {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 12px;
+      align-items: center;
+      margin-bottom: 10px;
     }
 
     .card-name {
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 700;
-      color: var(--text);
       letter-spacing: -0.02em;
+      color: var(--label);
     }
 
     .tag {
-      font-size: 0.7rem;
-      font-weight: 500;
-      padding: 3px 9px;
-      border-radius: 100px;
+      font-size: 0.68rem;
+      font-weight: 600;
       letter-spacing: 0.02em;
-      white-space: nowrap;
+      padding: 3px 10px;
+      border-radius: var(--radius-tag);
     }
 
-    .tag-music {
-      background: rgba(52, 211, 153, 0.1);
-      color: var(--green);
-      border: 1px solid rgba(52, 211, 153, 0.2);
-    }
-
-    .tag-game {
-      background: rgba(251, 191, 36, 0.1);
-      color: var(--amber);
-      border: 1px solid rgba(251, 191, 36, 0.2);
-    }
-
-    .tag-study {
-      background: rgba(129, 140, 248, 0.1);
-      color: var(--indigo);
-      border: 1px solid rgba(129, 140, 248, 0.2);
-    }
+    .tag-music  { background: rgba(48,209,88,0.15);  color: #30d158; }
+    .tag-game   { background: rgba(255,214,10,0.12);  color: #ffd60a; }
+    .tag-study  { background: rgba(94,92,230,0.15);   color: #a5a3f7; }
 
     .card-desc {
-      font-size: 0.875rem;
-      color: var(--text-2);
+      font-size: 0.85rem;
+      color: var(--label-2);
       line-height: 1.6;
       flex: 1;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
+      letter-spacing: -0.005em;
     }
 
     .card-links {
       display: flex;
-      gap: 10px;
+      gap: 8px;
     }
 
     .btn {
-      font-size: 0.8rem;
-      font-weight: 500;
-      padding: 7px 16px;
-      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      padding: 8px 18px;
+      border-radius: 100px;
       text-decoration: none;
-      transition: background 0.15s, color 0.15s;
+      transition: opacity 0.15s;
     }
 
-    .btn-primary {
-      background: var(--indigo);
+    .btn:hover { opacity: 0.8; }
+
+    .btn-live {
+      background: var(--blue);
       color: #fff;
     }
 
-    .btn-primary:hover {
-      background: #939cf9;
+    .btn-code {
+      background: var(--fill-hi);
+      color: var(--label-2);
+      border: 0.5px solid var(--glass-border);
     }
 
-    .btn-secondary {
-      background: rgba(139, 148, 220, 0.08);
-      color: var(--text-2);
-      border: 1px solid var(--border);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(139, 148, 220, 0.14);
-      color: var(--text);
-    }
-
-    /* Wide card (last) */
+    /* ── Wide card ── */
     .card-wide {
       grid-column: 1 / -1;
       flex-direction: row;
-      gap: 40px;
-      align-items: flex-start;
+      align-items: center;
+      gap: 32px;
+      padding: 26px 30px;
     }
 
-    .card-wide .card-body {
-      flex: 1;
-    }
+    .card-wide .card-body { flex: 1; }
 
-    .card-wide .card-side {
+    .card-wide .card-aside {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      align-items: flex-end;
-      padding-top: 4px;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .card-wide .card-aside .btn {
+      text-align: center;
+      min-width: 80px;
     }
 
     /* ── Footer ── */
     footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 0 40px;
+      margin-top: 40px;
+      padding: 24px 0 48px;
+      border-top: 0.5px solid var(--separator);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .footer-text {
-      font-size: 0.8rem;
-      color: var(--text-3);
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--label-3);
+      letter-spacing: -0.01em;
     }
 
     .footer-link {
-      font-size: 0.8rem;
-      color: var(--text-3);
+      font-size: 0.78rem;
+      color: var(--label-3);
       text-decoration: none;
       transition: color 0.15s;
     }
 
-    .footer-link:hover { color: var(--text-2); }
+    .footer-link:hover { color: var(--label-2); }
 
     /* ── Responsive ── */
-    @media (max-width: 660px) {
+    @media (max-width: 640px) {
       .hero { padding: 64px 0 56px; }
+      .hero-title { letter-spacing: -0.03em; }
       .grid { grid-template-columns: 1fr; }
-      .card-wide { flex-direction: column; gap: 0; }
-      .card-wide .card-side { flex-direction: row; align-items: flex-start; padding-top: 0; }
-      .card-wide .card-header { display: none; }
-      .card-wide .card-body .card-header { display: flex; }
+      .card-wide { flex-direction: column; gap: 16px; align-items: flex-start; }
+      .card-wide .card-aside { flex-direction: row; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .card { transition: none; }
-      .btn { transition: none; }
+      .card { transition: background 0.25s, border-color 0.25s; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
+
+  <!-- Background gradient orbs -->
+  <div class="backdrop" aria-hidden="true">
+    <div class="backdrop-orb orb-1"></div>
+    <div class="backdrop-orb orb-2"></div>
+    <div class="backdrop-orb orb-3"></div>
+  </div>
+
+  <div class="page">
 
     <nav>
-      <a href="/" class="nav-logo">1B0B-UP</a>
-      <a href="https://github.com/1B0B-UP" target="_blank" rel="noopener" class="nav-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+      <a href="/" class="nav-pill">1B0B-UP</a>
+      <a href="https://github.com/1B0B-UP" target="_blank" rel="noopener" class="nav-gh">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.164 6.839 9.489.5.09.682-.218.682-.484 0-.236-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.026A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.026 2.747-1.026.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .269.18.579.688.481C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/>
         </svg>
         GitHub
@@ -352,91 +385,89 @@
     </nav>
 
     <section class="hero">
-      <div class="hero-label">Music &amp; Learning Tools</div>
-      <h1 class="hero-name">1B0B-UP</h1>
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Music &amp; Learning Tools
+      </div>
+      <h1 class="hero-title">1B0B-UP</h1>
       <p class="hero-sub">I build tools for ear training, pitch analysis, engineering study, and critical thinking — made for personal use.</p>
-      <a href="https://github.com/1B0B-UP" target="_blank" rel="noopener" class="hero-cta">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.164 6.839 9.489.5.09.682-.218.682-.484 0-.236-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.026A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.026 2.747-1.026.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .269.18.579.688.481C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/>
-        </svg>
-        View all projects
+      <a href="https://github.com/1B0B-UP" target="_blank" rel="noopener" class="hero-btn">
+        View on GitHub
       </a>
     </section>
 
     <main>
-      <p class="section-label">Projects</p>
+      <p class="section-head">Projects</p>
 
       <div class="grid">
 
         <div class="card">
-          <div class="card-header">
+          <div class="card-top">
             <div class="card-name">Perfect Pitch Analyzer</div>
             <span class="tag tag-music">Music</span>
           </div>
-          <p class="card-desc">Real-time pitch, chord, and key detection from your microphone. Includes a guitar tuner, piano and fretboard visualizations, saved sessions, and MIDI export.</p>
+          <p class="card-desc">Real-time pitch, chord, and key detection from your microphone. Guitar tuner, piano and fretboard views, saved sessions, MIDI export.</p>
           <div class="card-links">
-            <a href="https://perfect-pitch-analyzer-v2-quickwins.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">Live</a>
-            <a href="https://github.com/1B0B-UP/perfect-pitch-analyzer" target="_blank" rel="noopener" class="btn btn-secondary">Code</a>
+            <a href="https://perfect-pitch-analyzer-v2-quickwins.vercel.app" target="_blank" rel="noopener" class="btn btn-live">Live</a>
+            <a href="https://github.com/1B0B-UP/perfect-pitch-analyzer" target="_blank" rel="noopener" class="btn btn-code">Code</a>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-header">
+          <div class="card-top">
             <div class="card-name">Guit Game</div>
             <span class="tag tag-game">Game</span>
           </div>
-          <p class="card-desc">Two guitar-controlled browser games. In Fight Guit every action is a note — punch, kick, jump, special. In Drive Guit three notes steer and boost a racing car.</p>
+          <p class="card-desc">Two guitar-controlled browser games. Fight Guit uses notes as actions — punch, kick, special. Drive Guit steers and boosts a racing car with three notes.</p>
           <div class="card-links">
-            <a href="https://guit-game.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">Live</a>
-            <a href="https://github.com/1B0B-UP/guit-game" target="_blank" rel="noopener" class="btn btn-secondary">Code</a>
+            <a href="https://guit-game.vercel.app" target="_blank" rel="noopener" class="btn btn-live">Live</a>
+            <a href="https://github.com/1B0B-UP/guit-game" target="_blank" rel="noopener" class="btn btn-code">Code</a>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-header">
+          <div class="card-top">
             <div class="card-name">Shwing</div>
             <span class="tag tag-music">Music</span>
           </div>
-          <p class="card-desc">Ear training through song anchors. Tie intervals, chords, and keys to songs you already know, then reinforce them with spaced-repetition drills.</p>
+          <p class="card-desc">Ear training through song anchors. Tie intervals, chords, and keys to songs you know, then reinforce them with spaced-repetition drills.</p>
           <div class="card-links">
-            <a href="https://shwing-ten.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">Live</a>
-            <a href="https://github.com/1B0B-UP/shwing" target="_blank" rel="noopener" class="btn btn-secondary">Code</a>
+            <a href="https://shwing-ten.vercel.app" target="_blank" rel="noopener" class="btn btn-live">Live</a>
+            <a href="https://github.com/1B0B-UP/shwing" target="_blank" rel="noopener" class="btn btn-code">Code</a>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-header">
+          <div class="card-top">
             <div class="card-name">Noble Shell</div>
             <span class="tag tag-study">Study</span>
           </div>
-          <p class="card-desc">Engineering study platform with FSRS spaced-repetition flashcards, AI quizzes, topic summaries, a YouTube and Wikipedia feed, and FE/PE exam prep.</p>
+          <p class="card-desc">Engineering study platform with FSRS flashcards, AI quizzes and summaries, a curated YouTube and Wikipedia feed, and FE/PE exam prep.</p>
           <div class="card-links">
-            <a href="https://noble-shell.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">Live</a>
-            <a href="https://github.com/1B0B-UP/noble-shell" target="_blank" rel="noopener" class="btn btn-secondary">Code</a>
+            <a href="https://noble-shell.vercel.app" target="_blank" rel="noopener" class="btn btn-live">Live</a>
+            <a href="https://github.com/1B0B-UP/noble-shell" target="_blank" rel="noopener" class="btn btn-code">Code</a>
+          </div>
+        </div>
+
+        <div class="card card-wide">
+          <div class="card-body">
+            <div class="card-top">
+              <div class="card-name">Te Matemata</div>
+              <span class="tag tag-study">Study</span>
+            </div>
+            <p class="card-desc" style="max-width:62ch">Two modes in one app. Think: walk through critical thinking scenarios out loud, coached step-by-step by a local AI. Learn: engineering flashcards, AI quizzes, topic summaries, and FE/PE prep.</p>
+          </div>
+          <div class="card-aside">
+            <a href="https://think-aloud-liard.vercel.app" target="_blank" rel="noopener" class="btn btn-live">Live</a>
+            <a href="https://github.com/1B0B-UP/think-aloud" target="_blank" rel="noopener" class="btn btn-code">Code</a>
           </div>
         </div>
 
       </div>
-
-      <!-- Te Matemata — full-width card -->
-      <div class="card card-wide">
-        <div class="card-body">
-          <div class="card-header">
-            <div class="card-name">Te Matemata</div>
-            <span class="tag tag-study">Study</span>
-          </div>
-          <p class="card-desc" style="max-width: 60ch;">Two modes in one app. Think: walk through critical thinking scenarios out loud — assumptions, evidence, consequences — coached by a local AI. Learn: the full Noble Shell study engine, engineering flashcards, quizzes, and FE/PE prep.</p>
-        </div>
-        <div class="card-side">
-          <a href="https://think-aloud-liard.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">Live</a>
-          <a href="https://github.com/1B0B-UP/think-aloud" target="_blank" rel="noopener" class="btn btn-secondary">Code</a>
-        </div>
-      </div>
-
     </main>
 
     <footer>
-      <span class="footer-text">Built and maintained by 1B0B-UP</span>
+      <span class="footer-copy">1B0B-UP</span>
       <a href="https://github.com/1B0B-UP" target="_blank" rel="noopener" class="footer-link">github.com/1B0B-UP</a>
     </footer>
 
