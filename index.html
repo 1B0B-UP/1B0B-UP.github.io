@@ -7,25 +7,23 @@
   <meta name="description" content="Music and learning tools, built for personal use.">
   <style>
     :root {
-      --bg:                #000000;
-      --bg-2:              #1c1c1e;
-      --bg-3:              #2c2c2e;
-      --fill:              rgba(255,255,255,0.05);
-      --fill-hi:           rgba(255,255,255,0.09);
-      --separator:         rgba(84,84,88,0.5);
-      --label:             #ffffff;
-      --label-2:           rgba(235,235,245,0.6);
-      --label-3:           rgba(235,235,245,0.3);
-      --blue:              #0a84ff;
-      --purple:            #bf5af2;
-      --indigo:            #5e5ce6;
-      --green:             #30d158;
-      --amber:             #ffd60a;
-      --glass-bg:          rgba(28,28,30,0.7);
-      --glass-border:      rgba(255,255,255,0.1);
-      --radius-card:       20px;
-      --radius-btn:        12px;
-      --radius-tag:        100px;
+      --bg:        #f5f5f7;
+      --surface:   #ffffff;
+      --text:      #1d1d1f;
+      --text-2:    #6e6e73;
+      --text-3:    #adadb8;
+      --sep:       rgba(0,0,0,0.08);
+      --shadow:    0 2px 20px rgba(0,0,0,0.07), 0 0 0 0.5px rgba(0,0,0,0.05);
+      --shadow-hi: 0 8px 40px rgba(0,0,0,0.12), 0 0 0 0.5px rgba(0,0,0,0.06);
+      --blue:      #0071e3;
+      --blue-bg:   #e8f0fe;
+      --green:     #1c7c2e;
+      --green-bg:  #e3f5e7;
+      --purple:    #6e3fbc;
+      --purple-bg: #f0eafa;
+      --amber:     #8a5a00;
+      --amber-bg:  #fdf2d8;
+      --radius:    18px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,56 +31,11 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
       background: var(--bg);
-      color: var(--label);
+      color: var(--text);
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
     }
 
-    /* ── Gradient backdrop ── */
-    .backdrop {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    .backdrop-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.35;
-    }
-
-    .orb-1 {
-      width: 600px;
-      height: 600px;
-      top: -200px;
-      left: -100px;
-      background: radial-gradient(circle, #5e5ce6, transparent 70%);
-    }
-
-    .orb-2 {
-      width: 500px;
-      height: 500px;
-      top: -100px;
-      right: -100px;
-      background: radial-gradient(circle, #bf5af2, transparent 70%);
-    }
-
-    .orb-3 {
-      width: 400px;
-      height: 400px;
-      bottom: 10%;
-      left: 30%;
-      background: radial-gradient(circle, #0a84ff, transparent 70%);
-      opacity: 0.18;
-    }
-
-    /* ── Layout ── */
     .page {
-      position: relative;
-      z-index: 1;
       max-width: 980px;
       margin: 0 auto;
       padding: 0 24px;
@@ -93,22 +46,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 0 0;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--sep);
     }
 
-    .nav-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border: 0.5px solid var(--glass-border);
-      border-radius: 100px;
-      padding: 8px 18px;
-      font-size: 0.875rem;
+    .nav-name {
+      font-size: 0.95rem;
       font-weight: 600;
-      color: var(--label);
+      color: var(--text);
       letter-spacing: -0.01em;
       text-decoration: none;
     }
@@ -116,132 +61,71 @@
     .nav-gh {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border: 0.5px solid var(--glass-border);
-      border-radius: 100px;
-      padding: 8px 18px;
-      font-size: 0.8rem;
+      gap: 6px;
+      font-size: 0.85rem;
       font-weight: 500;
-      color: var(--label-2);
+      color: var(--blue);
       text-decoration: none;
-      transition: color 0.2s, background 0.2s;
     }
 
-    .nav-gh:hover {
-      color: var(--label);
-      background: var(--fill-hi);
-    }
+    .nav-gh:hover { text-decoration: underline; }
 
     /* ── Hero ── */
     .hero {
-      padding: 100px 0 80px;
       text-align: center;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(94,92,230,0.15);
-      border: 0.5px solid rgba(94,92,230,0.4);
-      border-radius: var(--radius-tag);
-      padding: 5px 14px;
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: #a5a3f7;
-      letter-spacing: 0.01em;
-      margin-bottom: 32px;
-    }
-
-    .hero-badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #a5a3f7;
+      padding: 80px 0 72px;
     }
 
     .hero-title {
-      font-size: clamp(3.5rem, 9vw, 6.5rem);
+      font-size: clamp(3rem, 8vw, 5.5rem);
       font-weight: 700;
       letter-spacing: -0.04em;
-      line-height: 1;
-      margin-bottom: 24px;
-      background: linear-gradient(160deg, #ffffff 40%, rgba(191,90,242,0.85) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      line-height: 1.04;
+      color: var(--text);
+      margin-bottom: 18px;
     }
 
     .hero-sub {
-      font-size: 1.15rem;
-      color: var(--label-2);
-      max-width: 44ch;
-      margin: 0 auto 40px;
-      line-height: 1.65;
+      font-size: 1.1rem;
+      color: var(--text-2);
       letter-spacing: -0.01em;
+      line-height: 1.5;
     }
 
-    .hero-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--blue);
-      color: #fff;
-      font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      padding: 14px 28px;
-      border-radius: var(--radius-btn);
-      text-decoration: none;
-      transition: opacity 0.2s;
-    }
-
-    .hero-btn:hover { opacity: 0.85; }
-
-    /* ── Section header ── */
-    .section-head {
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--label-3);
-      margin-bottom: 12px;
-      padding-left: 4px;
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: var(--sep);
+      margin-bottom: 40px;
     }
 
     /* ── Grid ── */
     .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      gap: 14px;
     }
 
     /* ── Card ── */
     .card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(40px) saturate(200%);
-      -webkit-backdrop-filter: blur(40px) saturate(200%);
-      border: 0.5px solid var(--glass-border);
-      border-radius: var(--radius-card);
-      padding: 24px 26px 22px;
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 26px 28px 22px;
       display: flex;
       flex-direction: column;
-      transition: background 0.25s, border-color 0.25s, transform 0.2s;
+      transition: box-shadow 0.22s ease, transform 0.22s ease;
     }
 
     .card:hover {
-      background: rgba(44,44,46,0.75);
-      border-color: rgba(255,255,255,0.18);
+      box-shadow: var(--shadow-hi);
       transform: translateY(-2px);
     }
 
     .card-top {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
       margin-bottom: 10px;
     }
 
@@ -249,28 +133,28 @@
       font-size: 1rem;
       font-weight: 700;
       letter-spacing: -0.02em;
-      color: var(--label);
+      color: var(--text);
     }
 
     .tag {
       font-size: 0.68rem;
       font-weight: 600;
-      letter-spacing: 0.02em;
       padding: 3px 10px;
-      border-radius: var(--radius-tag);
+      border-radius: 100px;
+      white-space: nowrap;
     }
 
-    .tag-music  { background: rgba(48,209,88,0.15);  color: #30d158; }
-    .tag-game   { background: rgba(255,214,10,0.12);  color: #ffd60a; }
-    .tag-study  { background: rgba(94,92,230,0.15);   color: #a5a3f7; }
+    .tag-music  { background: var(--green-bg);  color: var(--green); }
+    .tag-game   { background: var(--amber-bg);  color: var(--amber); }
+    .tag-study  { background: var(--purple-bg); color: var(--purple); }
 
     .card-desc {
-      font-size: 0.85rem;
-      color: var(--label-2);
+      font-size: 0.875rem;
+      color: var(--text-2);
       line-height: 1.6;
+      letter-spacing: -0.005em;
       flex: 1;
       margin-bottom: 20px;
-      letter-spacing: -0.005em;
     }
 
     .card-links {
@@ -288,7 +172,7 @@
       transition: opacity 0.15s;
     }
 
-    .btn:hover { opacity: 0.8; }
+    .btn:hover { opacity: 0.78; }
 
     .btn-live {
       background: var(--blue);
@@ -296,9 +180,8 @@
     }
 
     .btn-code {
-      background: var(--fill-hi);
-      color: var(--label-2);
-      border: 0.5px solid var(--glass-border);
+      background: rgba(0,0,0,0.05);
+      color: var(--text-2);
     }
 
     /* ── Wide card ── */
@@ -306,7 +189,7 @@
       grid-column: 1 / -1;
       flex-direction: row;
       align-items: center;
-      gap: 32px;
+      gap: 28px;
       padding: 26px 30px;
     }
 
@@ -321,61 +204,50 @@
 
     .card-wide .card-aside .btn {
       text-align: center;
-      min-width: 80px;
+      min-width: 76px;
     }
 
     /* ── Footer ── */
     footer {
-      margin-top: 40px;
+      margin-top: 14px;
       padding: 24px 0 48px;
-      border-top: 0.5px solid var(--separator);
+      border-top: 1px solid var(--sep);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .footer-copy {
+    .footer-text {
       font-size: 0.78rem;
-      color: var(--label-3);
-      letter-spacing: -0.01em;
+      color: var(--text-3);
     }
 
     .footer-link {
       font-size: 0.78rem;
-      color: var(--label-3);
+      color: var(--text-3);
       text-decoration: none;
-      transition: color 0.15s;
     }
 
-    .footer-link:hover { color: var(--label-2); }
+    .footer-link:hover { color: var(--text-2); }
 
     /* ── Responsive ── */
-    @media (max-width: 640px) {
-      .hero { padding: 64px 0 56px; }
-      .hero-title { letter-spacing: -0.03em; }
+    @media (max-width: 620px) {
+      .hero { padding: 56px 0 48px; }
       .grid { grid-template-columns: 1fr; }
       .card-wide { flex-direction: column; gap: 16px; align-items: flex-start; }
       .card-wide .card-aside { flex-direction: row; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .card { transition: background 0.25s, border-color 0.25s; }
+      .card { transition: none; }
     }
   </style>
 </head>
 <body>
-
-  <!-- Background gradient orbs -->
-  <div class="backdrop" aria-hidden="true">
-    <div class="backdrop-orb orb-1"></div>
-    <div class="backdrop-orb orb-2"></div>
-    <div class="backdrop-orb orb-3"></div>
-  </div>
-
   <div class="page">
 
     <nav>
-      <a href="/" class="nav-pill">1B0B-UP</a>
+      <a href="/" class="nav-name">1B0B-UP</a>
       <a href="https://github.com/1B0B-UP" target="_blank" rel="noopener" class="nav-gh">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.164 6.839 9.489.5.09.682-.218.682-.484 0-.236-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.026A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.026 2.747-1.026.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .269.18.579.688.481C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/>
@@ -385,20 +257,13 @@
     </nav>
 
     <section class="hero">
-      <div class="hero-badge">
-        <span class="hero-badge-dot"></span>
-        Music &amp; Learning Tools
-      </div>
       <h1 class="hero-title">1B0B-UP</h1>
-      <p class="hero-sub">I build tools for ear training, pitch analysis, engineering study, and critical thinking — made for personal use.</p>
-      <a href="https://github.com/1B0B-UP" target="_blank" rel="noopener" class="hero-btn">
-        View on GitHub
-      </a>
+      <p class="hero-sub">Music and learning tools, built for personal use.</p>
     </section>
 
-    <main>
-      <p class="section-head">Projects</p>
+    <div class="divider"></div>
 
+    <main>
       <div class="grid">
 
         <div class="card">
@@ -418,7 +283,7 @@
             <div class="card-name">Guit Game</div>
             <span class="tag tag-game">Game</span>
           </div>
-          <p class="card-desc">Two guitar-controlled browser games. Fight Guit uses notes as actions — punch, kick, special. Drive Guit steers and boosts a racing car with three notes.</p>
+          <p class="card-desc">Two guitar-controlled browser games. Fight Guit maps notes to combat moves. Drive Guit steers and boosts a racing car with three notes.</p>
           <div class="card-links">
             <a href="https://guit-game.vercel.app" target="_blank" rel="noopener" class="btn btn-live">Live</a>
             <a href="https://github.com/1B0B-UP/guit-game" target="_blank" rel="noopener" class="btn btn-code">Code</a>
@@ -442,7 +307,7 @@
             <div class="card-name">Noble Shell</div>
             <span class="tag tag-study">Study</span>
           </div>
-          <p class="card-desc">Engineering study platform with FSRS flashcards, AI quizzes and summaries, a curated YouTube and Wikipedia feed, and FE/PE exam prep.</p>
+          <p class="card-desc">Engineering study platform with FSRS flashcards, AI quizzes and summaries, a curated feed, and FE/PE exam prep.</p>
           <div class="card-links">
             <a href="https://noble-shell.vercel.app" target="_blank" rel="noopener" class="btn btn-live">Live</a>
             <a href="https://github.com/1B0B-UP/noble-shell" target="_blank" rel="noopener" class="btn btn-code">Code</a>
@@ -455,7 +320,7 @@
               <div class="card-name">Te Matemata</div>
               <span class="tag tag-study">Study</span>
             </div>
-            <p class="card-desc" style="max-width:62ch">Two modes in one app. Think: walk through critical thinking scenarios out loud, coached step-by-step by a local AI. Learn: engineering flashcards, AI quizzes, topic summaries, and FE/PE prep.</p>
+            <p class="card-desc" style="max-width:60ch">Two modes: walk through critical thinking scenarios out loud, coached step-by-step by a local AI — or study engineering topics with flashcards, quizzes, and FE/PE prep.</p>
           </div>
           <div class="card-aside">
             <a href="https://think-aloud-liard.vercel.app" target="_blank" rel="noopener" class="btn btn-live">Live</a>
@@ -467,7 +332,7 @@
     </main>
 
     <footer>
-      <span class="footer-copy">1B0B-UP</span>
+      <span class="footer-text">1B0B-UP</span>
       <a href="https://github.com/1B0B-UP" target="_blank" rel="noopener" class="footer-link">github.com/1B0B-UP</a>
     </footer>
 
